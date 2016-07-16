@@ -14,7 +14,18 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     
     @sort = params[:sort]
-    puts @sort
+    @ratings = params[:ratings]
+    
+    @all_ratings = Movie.ratings
+    
+    if(@sort)
+      @movies = Movie.order(@sort.to_sym)
+    end
+    
+    if(@ratings)
+      @movies = Movie.where(rating: @ratings.keys)
+    end
+    
   end
 
   def new
